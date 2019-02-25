@@ -13,10 +13,6 @@
             %br/
             = f.email_field :email, autofocus: true, class: 'form-control'
           .form-group
-            = f.label :name
-            %br/
-            = f.text_field :name, class: 'form-control'
-          .form-group
             = f.label :password
             - if @validatable
               %em

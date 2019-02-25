@@ -1,18 +1,12 @@
 class MoviesController < ApplicationController
   before_action :authenticate_user!, only: [:send_info]
 
-  def index
-    @movies = Movie.all.decorate
-  end
-
-  def show
-    @movie = Movie.find(params[:id])
-  end
+  expose_decorated(:movies) { Movie.all.includes(:genre) }
+  expose_decorated(:movie)
 
   def send_info
-    @movie = Movie.find(params[:id])
-    MovieInfoMailer.send_info(current_user, @movie).deliver_now
-    redirect_back(fallback_location: root_path, notice: "Email sent with movie info")
+    MovieInfoMailer.send_info(current_user, movie).deliver_now
+    redirect_to :back, notice: "Email sent with movie info"
   end
 
   def export

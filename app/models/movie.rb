@@ -14,4 +14,12 @@
 
 class Movie < ApplicationRecord
   belongs_to :genre
+
+  def pair_guru_movie_details
+    begin
+      PairGuruMovieApi::Movie.cached_find(self.title).try(:first)
+    rescue JsonApiClient::Errors::ApiError => e
+      Rails.logger.error("PairGuruMovieApi::Movie.cached_find(#{self.title}) threw an error: #{e.message}")
+    end
+  end
 end

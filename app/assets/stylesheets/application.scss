@@ -1,2 +1,10 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+.movie-cover{
+  max-height: 150px;
+  max-width: 100px;
+}
+td.attribute-name{
+  min-width: 100px;
+}
