@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :genre do
-    name { Faker::Lorem.word }
+    sequence(:name) {|n| "Genre#{n}"}
 
     trait :with_movies do
       after(:create) do |genre|

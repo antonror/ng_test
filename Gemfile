@@ -16,6 +16,7 @@ gem "uglifier"
 
 gem 'json_api_client'
 gem 'dotenv-rails'
+gem 'active_model_serializers'
 
 group :development do
   gem "better_errors"
