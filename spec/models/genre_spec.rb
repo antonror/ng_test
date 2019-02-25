@@ -1,4 +1,3 @@
-require "rails_helper"
 
 describe Genre do
   let!(:genre) { create(:genre, :with_movies) }

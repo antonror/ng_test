@@ -1,7 +1,8 @@
 require "csv"
 
 class MovieExporter
-  def call(user, file_path)
+  def call(user, file_path=nil)
+    file_path ||= "tmp/movies_#{SecureRandom.hex(10)}.csv"
     CSV.open(file_path, "wb", csv_options) do |csv|
       Movie.all.each do |movie|
         csv << [movie.title, movie.description]

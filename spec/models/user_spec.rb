@@ -1,4 +1,3 @@
-require "rails_helper"
 
 describe User do
   it { is_expected.to allow_value("+48 999 888 777").for(:phone_number) }

@@ -1,4 +1,3 @@
-require "rails_helper"
 
 describe "Genres requests", type: :request do
   let!(:genres) { create_list(:genre, 5, :with_movies) }

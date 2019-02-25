@@ -11,7 +11,7 @@ User.create!(
   User.create!(
     email: Faker::Internet.email,
     confirmed_at: Time.now,
-    password: 'commonpass11'
+    password: 'defaultpass11'
   )
 end
 

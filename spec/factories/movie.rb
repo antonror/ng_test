@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :movie do
     sequence(:title) { |n| "Movie#{n}" }
     description { Faker::Lorem.sentence(3, true) }
