@@ -1,6 +1,6 @@
 require 'faker'
 
-puts 'Creating users...'
+p 'Creating users...'
 User.create!(
   email: 'user@example.com',
   password: 'userexample11',
@@ -9,13 +9,14 @@ User.create!(
 
 20.times do
   User.create!(
+    name: Faker::FunnyName.three_word_name,
     email: Faker::Internet.email,
     confirmed_at: Time.now,
     password: 'defaultpass11'
   )
 end
 
-puts 'Creating genres...'
+p 'Creating genres...'
 %w(Action Comedy Sci-Fi War Crime
    Horror Sport Western Drama
    Musicial Romance Thriller
@@ -23,57 +24,39 @@ puts 'Creating genres...'
   Genre.find_or_create_by!(name: genre)
 end
 
-movies = [
-  {
-    title: 'Pulp Fiction',
-    release_year: '1994'
-  },
-  {
-    title: 'Django',
-    release_year: '2012'
-  },
-  {
-    title: 'Kill Bill',
-    release_year: '2003'
-  },
-  {
-    title: 'Kill Bill 2',
-    release_year: '2004'
-  },
-  {
-    title: 'Inglourious Basterds',
-    release_year: '2009'
-  },
-  {
-    title: 'Godfather',
-    release_year: '1972'
-  },
-  {
-    title: 'The Dark Knight',
-    release_year: '2008'
-  },
-  {
-    title: 'Star Wars V',
-    release_year: '1980'
-  },
-  {
-    title: 'Inception',
-    release_year: '2010'
-  },
-  {
-    title: 'Deadpool',
-    release_year: '2016'
-  }
-]
-
-puts 'Creating movies...'
+p 'Creating movies...'
 genre_ids = Genre.pluck(:id)
-100.times do
-  movie = movies.sample
-  Movie.find_or_create_by!(
-    title: movie[:title],
-    description: Faker::Lorem.paragraph(5),
-    genre_id: genre_ids.sample,
-    released_at: Date.new(movie[:release_year].to_i)
-  )
+if Movie.count < 100
+  20.times do
+    Movie.create!(
+      title: Faker::Movies::HarryPotter.book,
+      description: Faker::Movies::HarryPotter.quote,
+      genre_id: genre_ids.sample,
+      released_at: Date.new(rand(1920..2015))
+    )
+  end
+  20.times do
+    Movie.create!(
+        title: Faker::Movies::StarWars.character,
+        description: Faker::Movies::StarWars.quote,
+        genre_id: genre_ids.sample,
+        released_at: Date.new(rand(1920..2015))
+    )
+  end
+  20.times do
+    Movie.create!(
+        title: Faker::Movies::LordOfTheRings.character,
+        description: Faker::Movies::LordOfTheRings.location,
+        genre_id: genre_ids.sample,
+        released_at: Date.new(rand(1920..2015))
+    )
+  end
+end
+
+p 'Creating comments...'
+
+User.all.each do |user|
+  Movie.all.each do |movie|
+    FactoryBot.create(:comment, user_id: user.id, movie_id: movie.id) if rand < 0.6
+  end
 end

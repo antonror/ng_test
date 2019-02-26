@@ -1,0 +1,11 @@
+.row
+  .col-sm-8.col-sm-offset-2.text-center
+    %h1 List of top commenters of the week
+- commenters_top.each_with_index do |commenter, i|
+  .row
+    .col-sm-2.col-sm-offset-2.text-right
+      %p= "#{i+1}."
+    .col-sm-4.text-center
+      %p= commenter.name
+    .col-sm-2.text-left
+      %p= commenter.comments_count
