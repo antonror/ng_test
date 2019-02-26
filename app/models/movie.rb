@@ -14,6 +14,7 @@
 
 class Movie < ApplicationRecord
   belongs_to :genre, counter_cache: true
+  has_many :comments, dependent: :destroy
 
   def pair_guru_movie_details
     begin

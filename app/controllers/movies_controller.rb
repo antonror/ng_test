@@ -3,6 +3,8 @@ class MoviesController < ApplicationController
 
   expose_decorated(:movies) { Movie.all.includes(:genre) }
   expose_decorated(:movie)
+  expose :comment, -> { Comment.new }
+  expose_decorated :comments, -> { CommentsService.movie_comments(params[:id])}
 
   def send_info
     MovieInfoMailer.send_info(current_user, movie).deliver_later

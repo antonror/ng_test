@@ -1,4 +1,4 @@
-class AddMoviesCountToGenres < ActiveRecord::Migration[5.0]
+class AddMoviesCountToGenres < ActiveRecord::Migration[5.2]
   def change
     change_table :genres do |t|
       t.integer :movies_count, default: 0

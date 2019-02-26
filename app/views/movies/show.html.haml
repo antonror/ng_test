@@ -21,3 +21,28 @@
       - if user_signed_in?
         .panel-footer
           = link_to 'Email me details about this movie', send_info_movie_path(movie), class: 'btn btn-sm btn-default'
+      - else
+        .col-sm-12
+          %p You have to sign in to leave comment
+          %br
+
+- comments.each_with_index do |comment, i|
+  .row
+    .col-md-9
+      .panel.panel-default
+        .row
+          .col-md-9.col-lg-12
+            %table.table
+              %tbody
+              %tr
+                %td
+                  = "#{i+1}."
+                %td
+                  = comment.user_name
+                %td
+                  = comment.content
+                %td
+                  = comment.pretty_created_at
+                - if user_signed_in? && current_user.id == comment.user_id
+                  %td
+                    = link_to 'Remove', comment_path(comment), method: :delete, class: 'btn btn-sm btn-danger'
